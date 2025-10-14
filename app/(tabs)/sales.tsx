@@ -2,10 +2,12 @@ import ThemedCard from "@/components/shared/ThemedCard";
 import ThemedText from "@/components/shared/ThemedText";
 import ThemedView from "@/components/shared/ThemedView";
 import { Ionicons } from "@expo/vector-icons";
+import { useColorScheme } from "nativewind";
 import React from "react";
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Pressable, ScrollView, Text, View } from "react-native";
 
 const Sales = () => {
+  const { colorScheme, setColorScheme } = useColorScheme();
   return (
     <ThemedView safe>
       <ScrollView className="pt-5" style={{ paddingHorizontal: 16 }}>
@@ -18,18 +20,33 @@ const Sales = () => {
             <Text className="font-medium text-base">New Sale</Text>
           </Pressable>
         </View>
-        <ThemedCard>
-          <ThemedText title>ID: #MSW12083</ThemedText>
-          <ThemedText>Date: 02-10-2025</ThemedText>
-          <ThemedText>Size: 20g Pouch</ThemedText>
+        <ThemedCard className="gap-4">
+          <View className="flex flex-row justify-between items-center mb-6">
+            <ThemedText title className="text-lg">
+              ID: #MSW12083
+            </ThemedText>
+            <ThemedText className="text-primary">Date: 02-10-2025</ThemedText>
+          </View>
+          <ThemedText style={{ marginBottom: 10 }}>Size: 20g Pouch</ThemedText>
           <ThemedText>Quanity: 2</ThemedText>
-          <ThemedText className="font-bold">Total: ₦2,500</ThemedText>
+          <ThemedText
+            className="font-bold text-primary mt-10"
+            style={{ marginTop: 10 }}
+          >
+            Total: ₦2,500
+          </ThemedText>
         </ThemedCard>
+
+        <Text
+          onPress={() =>
+            setColorScheme(colorScheme === "light" ? "dark" : "light")
+          }
+        >
+          {`The color scheme is ${colorScheme}`}
+        </Text>
       </ScrollView>
     </ThemedView>
   );
 };
 
 export default Sales;
-
-const styles = StyleSheet.create({});

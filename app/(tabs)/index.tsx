@@ -1,6 +1,6 @@
-import DashboardHeader from "@/components/DashboardHeader";
-import MetricCard from "@/components/MetricCard";
-import SalesExpensesChart from "@/components/SalesExpensesChart";
+import DashboardHeader from "@/components/home-comps/DashboardHeader";
+import MetricCard from "@/components/home-comps/MetricCard";
+import SalesExpensesChart from "@/components/home-comps/SalesExpensesChart";
 import ThemedView from "@/components/shared/ThemedView";
 import React, { useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";

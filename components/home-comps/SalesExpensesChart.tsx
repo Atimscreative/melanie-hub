@@ -7,7 +7,7 @@ import {
   View,
 } from "react-native";
 // import { LineChart } from "react-native-chart-kit";
-import { colors } from "../constants/colors";
+import { colors } from "@/constants/colors";
 
 const screenWidth = Dimensions.get("window").width;
 

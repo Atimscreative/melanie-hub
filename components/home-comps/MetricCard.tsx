@@ -1,8 +1,8 @@
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import { StyleSheet, Text, useColorScheme, View } from "react-native";
-import { colors } from "../constants/colors";
-import ThemedCard from "./shared/ThemedCard";
+import { colors } from "../../constants/colors";
+import ThemedCard from "../shared/ThemedCard";
 
 interface MetricCardProps {
   title: string;

@@ -3,29 +3,47 @@
 @tailwind utilities;
 
 :root {
-  /* Light theme colors */
-  --color-primary: #E9712B;
-  --color-primary-hover: #D45F1F;
-  --color-background: #FFF8F0;
-  --color-card: #FFE8D0;
-  --color-title: #3E2B1E;
-  --color-body: #704B2A;
-  --color-border: #F1C6A8;
-  --color-input-bg: #FFFFFF;
-  --color-placeholder: #A07B5E;
+  /* Light theme colors (RGB values for opacity support) */
+  --color-primary: 233 113 43;
+  /* #E9712B */
+  --color-primary-hover: 212 95 31;
+  /* #D45F1F */
+  --color-background: 255 248 240;
+  /* #FFF8F0 */
+  --color-card: 255 232 208;
+  /* #FFE8D0 */
+  --color-title: 62 43 30;
+  /* #3E2B1E */
+  --color-body: 112 75 42;
+  /* #704B2A */
+  --color-border: 241 198 168;
+  /* #F1C6A8 */
+  --color-input-bg: 255 255 255;
+  /* #FFFFFF */
+  --color-placeholder: 160 123 94;
+  /* #A07B5E */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    /* Dark theme colors */
-    --color-primary: #FF8C42;
-    --color-primary-hover: #FF7A24;
-    --color-background: #1A120E;
-    --color-card: #2B1B12;
-    --color-title: #FFE8D0;
-    --color-body: #D7B89C;
-    --color-border: #3A2A20;
-    --color-input-bg: #2A1C14;
-    --color-placeholder: #B08E73;
+    /* Dark theme colors (RGB values for opacity support) */
+    --color-primary: 255 140 66;
+    /* #FF8C42 */
+    --color-primary-hover: 255 122 36;
+    /* #FF7A24 */
+    --color-background: 26 18 14;
+    /* #1A120E */
+    --color-card: 43 27 18;
+    /* #2B1B12 */
+    --color-title: 255 232 208;
+    /* #FFE8D0 */
+    --color-body: 215 184 156;
+    /* #D7B89C */
+    --color-border: 58 42 32;
+    /* #3A2A20 */
+    --color-input-bg: 42 28 20;
+    /* #2A1C14 */
+    --color-placeholder: 176 142 115;
+    /* #B08E73 */
   }
 }
