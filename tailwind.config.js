@@ -11,10 +11,8 @@ module.exports = {
         },
         background: "var(--color-background)",
         card: "var(--color-card)",
-        text: {
-          DEFAULT: "var(--color-text)",
-          sub: "var(--color-sub-text)",
-        },
+        title: "var(--color-title)",
+        body: "var(--color-body)",
         border: "var(--color-border)",
         input: {
           bg: "var(--color-input-bg)",

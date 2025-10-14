@@ -8,8 +8,8 @@
   --color-primary-hover: #D45F1F;
   --color-background: #FFF8F0;
   --color-card: #FFE8D0;
-  --color-text: #3E2B1E;
-  --color-sub-text: #704B2A;
+  --color-title: #3E2B1E;
+  --color-body: #704B2A;
   --color-border: #F1C6A8;
   --color-input-bg: #FFFFFF;
   --color-placeholder: #A07B5E;
@@ -22,8 +22,8 @@
     --color-primary-hover: #FF7A24;
     --color-background: #1A120E;
     --color-card: #2B1B12;
-    --color-text: #FFE8D0;
-    --color-sub-text: #D7B89C;
+    --color-title: #FFE8D0;
+    --color-body: #D7B89C;
     --color-border: #3A2A20;
     --color-input-bg: #2A1C14;
     --color-placeholder: #B08E73;
