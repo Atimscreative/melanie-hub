@@ -1,10 +1,11 @@
+import BottomNavigation from "@/components/BottomNavigation";
+import DashboardHeader from "@/components/DashboardHeader";
+import MetricCard from "@/components/MetricCard";
+import SalesExpensesChart from "@/components/SalesExpensesChart";
+import { colors } from "@/constants/colors";
 import React, { useState } from "react";
-import { SafeAreaView, ScrollView, StyleSheet, View } from "react-native";
-import BottomNavigation from "../components/BottomNavigation";
-import DashboardHeader from "../components/DashboardHeader";
-import MetricCard from "../components/MetricCard";
-import SalesExpensesChart from "../components/SalesExpensesChart";
-import { colors } from "../constants/colors";
+import { ScrollView, StyleSheet, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState("dashboard");

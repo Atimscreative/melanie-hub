@@ -12,7 +12,7 @@ export default function DashboardHeader({
 }: DashboardHeaderProps) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Dashboard</Text>
+      <Text className="text-primary font-bold text-2xl">Dashboard yfydj</Text>
       <TouchableOpacity onPress={onSettingsPress} style={styles.settingsButton}>
         <Ionicons
           name="settings-outline"
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: "bold",
-    color: colors.textPrimary,
+    // color: colors.textPrimary,
   },
   settingsButton: {
     padding: 8,
