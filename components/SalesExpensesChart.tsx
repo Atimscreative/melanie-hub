@@ -1,5 +1,11 @@
 import React from "react";
-import { Dimensions, StyleSheet, Text, View } from "react-native";
+import {
+  Dimensions,
+  StyleSheet,
+  Text,
+  useColorScheme,
+  View,
+} from "react-native";
 // import { LineChart } from "react-native-chart-kit";
 import { colors } from "../constants/colors";
 
@@ -17,6 +23,9 @@ interface SalesExpensesChartProps {
 }
 
 export default function SalesExpensesChart({ data }: SalesExpensesChartProps) {
+  const colorScheme = useColorScheme();
+  const theme = colors[colorScheme ?? "dark"];
+
   const defaultData = {
     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
     datasets: [
@@ -35,6 +44,57 @@ export default function SalesExpensesChart({ data }: SalesExpensesChartProps) {
 
   const chartData = data || defaultData;
 
+  const styles = StyleSheet.create({
+    container: {
+      backgroundColor: theme.card,
+      borderRadius: 12,
+      padding: 16,
+      marginHorizontal: 16,
+      marginVertical: 8,
+    },
+    header: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
+      marginBottom: 4,
+    },
+    title: {
+      fontSize: 16,
+      fontWeight: "600",
+      color: theme.text,
+    },
+    legend: {
+      flexDirection: "row",
+      alignItems: "center",
+    },
+    legendItem: {
+      flexDirection: "row",
+      alignItems: "center",
+      marginLeft: 16,
+    },
+    legendDot: {
+      width: 8,
+      height: 8,
+      borderRadius: 4,
+      marginRight: 6,
+    },
+    legendText: {
+      fontSize: 12,
+      color: theme.text,
+    },
+    subtitle: {
+      fontSize: 12,
+      color: theme.text,
+      marginBottom: 16,
+    },
+    chartContainer: {
+      alignItems: "center",
+    },
+    chart: {
+      borderRadius: 16,
+    },
+  });
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -42,7 +102,10 @@ export default function SalesExpensesChart({ data }: SalesExpensesChartProps) {
         <View style={styles.legend}>
           <View style={styles.legendItem}>
             <View
-              style={[styles.legendDot, { backgroundColor: colors.chartSales }]}
+              style={[
+                styles.legendDot,
+                { backgroundColor: theme.primaryHover },
+              ]}
             />
             <Text style={styles.legendText}>Sales</Text>
           </View>
@@ -50,7 +113,7 @@ export default function SalesExpensesChart({ data }: SalesExpensesChartProps) {
             <View
               style={[
                 styles.legendDot,
-                { backgroundColor: colors.chartExpenses },
+                { backgroundColor: theme.primaryHover },
               ]}
             />
             <Text style={styles.legendText}>Expenses</Text>
@@ -91,54 +154,3 @@ export default function SalesExpensesChart({ data }: SalesExpensesChartProps) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: colors.cardBackground,
-    borderRadius: 12,
-    padding: 16,
-    marginHorizontal: 16,
-    marginVertical: 8,
-  },
-  header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 4,
-  },
-  title: {
-    fontSize: 16,
-    fontWeight: "600",
-    color: colors.textSecondary,
-  },
-  legend: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  legendItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginLeft: 16,
-  },
-  legendDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    marginRight: 6,
-  },
-  legendText: {
-    fontSize: 12,
-    color: colors.textSecondary,
-  },
-  subtitle: {
-    fontSize: 12,
-    color: colors.textSecondary,
-    marginBottom: 16,
-  },
-  chartContainer: {
-    alignItems: "center",
-  },
-  chart: {
-    borderRadius: 16,
-  },
-});

@@ -1,7 +1,8 @@
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, useColorScheme, View } from "react-native";
 import { colors } from "../constants/colors";
+import ThemedCard from "./shared/ThemedCard";
 
 interface MetricCardProps {
   title: string;
@@ -18,6 +19,9 @@ export default function MetricCard({
   icon,
   trend,
 }: MetricCardProps) {
+  const colorScheme = useColorScheme();
+  const theme = colors[colorScheme ?? "dark"];
+
   const getTrendIcon = () => {
     switch (trend) {
       case "up":
@@ -28,18 +32,54 @@ export default function MetricCard({
         return null;
     }
   };
+  const styles = StyleSheet.create({
+    container: {
+      backgroundColor: theme.card,
+      borderRadius: 12,
+      padding: 16,
+      flex: 1,
+      margin: 4,
+    },
+    header: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "flex-start",
+      marginBottom: 8,
+    },
+    title: {
+      fontSize: 14,
+      color: theme.text,
+      fontWeight: "500",
+    },
+    iconContainer: {
+      flexDirection: "row",
+      alignItems: "center",
+    },
+    trendIcon: {
+      marginLeft: 4,
+    },
+    value: {
+      fontSize: 24,
+      fontWeight: "bold",
+      color: theme.primary,
+      marginBottom: 4,
+    },
+    subtitle: {
+      fontSize: 12,
+      color: theme.text,
+    },
+  });
 
   return (
-    <View style={styles.container}>
+    <ThemedCard style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>{title}</Text>
         <View style={styles.iconContainer}>
-          <Ionicons name={icon} size={20} color={colors.primary} />
           {trend && (
             <Ionicons
               name={getTrendIcon() as keyof typeof Ionicons.glyphMap}
               size={16}
-              color={colors.primary}
+              color={theme.primary}
               style={styles.trendIcon}
             />
           )}
@@ -47,44 +87,6 @@ export default function MetricCard({
       </View>
       <Text style={styles.value}>{value}</Text>
       <Text style={styles.subtitle}>{subtitle}</Text>
-    </View>
+    </ThemedCard>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: colors.cardBackground,
-    borderRadius: 12,
-    padding: 16,
-    flex: 1,
-    margin: 4,
-  },
-  header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "flex-start",
-    marginBottom: 8,
-  },
-  title: {
-    fontSize: 14,
-    color: colors.textSecondary,
-    fontWeight: "500",
-  },
-  iconContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  trendIcon: {
-    marginLeft: 4,
-  },
-  value: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: colors.textPrimary,
-    marginBottom: 4,
-  },
-  subtitle: {
-    fontSize: 12,
-    color: colors.textSecondary,
-  },
-});

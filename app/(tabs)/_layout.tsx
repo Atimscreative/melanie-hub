@@ -1,10 +1,24 @@
+import { colors } from "@/constants/colors";
 import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import React from "react";
+import { useColorScheme } from "react-native";
 
 const TabLayout = () => {
+  const colorScheme = useColorScheme();
+  const theme = colors[colorScheme ?? "dark"];
+
   return (
-    <Tabs screenOptions={{ headerShown: false }}>
+    <Tabs
+      screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor: theme.primary,
+        tabBarInactiveTintColor: theme.placeholder,
+        tabBarStyle: {
+          backgroundColor: theme.background,
+        },
+      }}
+    >
       <Tabs.Screen
         name="home"
         options={{

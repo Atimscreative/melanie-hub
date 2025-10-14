@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import React from "react";
-import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
+import { StyleProp, View, ViewStyle } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 type Props = {
@@ -16,7 +16,7 @@ const ThemedView = ({ style, safe = false, className, ...props }: Props) => {
   if (safe)
     return (
       <View
-        className={cn("bg-background", className)}
+        className={cn("bg-background flex-1", className)}
         style={[
           {
             paddingTop: insets.top,
@@ -31,12 +31,10 @@ const ThemedView = ({ style, safe = false, className, ...props }: Props) => {
   return (
     <View
       style={[style]}
-      className={cn("bg-background", className)}
+      className={cn("bg-background flex-1", className)}
       {...props}
     />
   );
 };
 
 export default ThemedView;
-
-const styles = StyleSheet.create({});

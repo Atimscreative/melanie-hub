@@ -1,7 +1,13 @@
 import { colors } from "@/constants/colors";
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  useColorScheme,
+  View,
+} from "react-native";
 
 interface DashboardHeaderProps {
   onSettingsPress?: () => void;
@@ -10,15 +16,13 @@ interface DashboardHeaderProps {
 export default function DashboardHeader({
   onSettingsPress,
 }: DashboardHeaderProps) {
+  const colorScheme = useColorScheme();
+  const theme = colors[colorScheme ?? "dark"];
   return (
     <View style={styles.container}>
-      <Text className="text-primary font-bold text-2xl">Dashboard yfydj</Text>
+      <Text className="text-primary font-bold text-2xl">Dashboard</Text>
       <TouchableOpacity onPress={onSettingsPress} style={styles.settingsButton}>
-        <Ionicons
-          name="settings-outline"
-          size={24}
-          color={colors.textSecondary}
-        />
+        <Ionicons name="settings-outline" size={24} color={theme.text} />
       </TouchableOpacity>
     </View>
   );

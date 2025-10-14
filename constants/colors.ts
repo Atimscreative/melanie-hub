@@ -1,4 +1,4 @@
-export const colors = {
+export const colorsq = {
   // Primary accent color (yellow)
   primary: "#f4af25",
 
@@ -26,7 +26,7 @@ export const colors = {
 // tab-dark: bg- #231e0f, active- #f4af25, inactive- #a1a1aa, text- #a1a1aa
 
 // colors.ts
-export const colors2 = {
+export const colors = {
   light: {
     primary: "#E9712B", // rich orange (brand accent)
     primaryHover: "#D45F1F",

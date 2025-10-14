@@ -11,7 +11,7 @@ type Props = {
 const ThemedCard = ({ style, className, ...props }: Props) => {
   return (
     <View
-      className={cn("border-border p-4 rounded-lg bg-card", className)}
+      className={cn("border-border border p-4 rounded-lg bg-card", className)}
       style={[style]}
       {...props}
     />

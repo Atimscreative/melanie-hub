@@ -1,9 +1,7 @@
-import BottomNavigation from "@/components/BottomNavigation";
 import DashboardHeader from "@/components/DashboardHeader";
 import MetricCard from "@/components/MetricCard";
 import SalesExpensesChart from "@/components/SalesExpensesChart";
 import ThemedView from "@/components/shared/ThemedView";
-import { colors } from "@/constants/colors";
 import React, { useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 
@@ -61,8 +59,6 @@ export default function Dashboard() {
 
         <SalesExpensesChart />
       </ScrollView>
-
-      <BottomNavigation activeTab={activeTab} onTabPress={handleTabPress} />
     </ThemedView>
   );
 }
@@ -70,7 +66,6 @@ export default function Dashboard() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
   },
   scrollView: {
     flex: 1,
