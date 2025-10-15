@@ -17,7 +17,7 @@ export default function Dashboard() {
   };
 
   return (
-    <ThemedView style={styles.container}>
+    <ThemedView safe style={styles.container}>
       <ScrollView
         style={styles.scrollView}
         showsVerticalScrollIndicator={false}

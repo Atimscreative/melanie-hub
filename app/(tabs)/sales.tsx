@@ -2,12 +2,14 @@ import ThemedCard from "@/components/shared/ThemedCard";
 import ThemedText from "@/components/shared/ThemedText";
 import ThemedView from "@/components/shared/ThemedView";
 import { Ionicons } from "@expo/vector-icons";
+import { Picker } from "@react-native-picker/picker";
 import { useColorScheme } from "nativewind";
-import React from "react";
-import { Pressable, ScrollView, Text, View } from "react-native";
+import React, { useState } from "react";
+import { Pressable, ScrollView, Text, TextInput, View } from "react-native";
 
 const Sales = () => {
   const { colorScheme, setColorScheme } = useColorScheme();
+  const [selectedItem, setSelectedItem] = useState("");
   return (
     <ThemedView safe>
       <ScrollView className="pt-5" style={{ paddingHorizontal: 16 }}>
@@ -36,6 +38,28 @@ const Sales = () => {
             Total: ₦2,500
           </ThemedText>
         </ThemedCard>
+        <View>
+          <Text>Select a language:</Text>
+          <Picker
+            selectedValue={selectedItem}
+            onValueChange={(itemValue) => setSelectedItem(itemValue as any)}
+            // style={{
+            //   backgroundColor: "#eee",
+            //   borderRadius: 8,
+            //   minHeight: 10,
+            //   padding: 0,
+            // }}
+            className="bg-input-bg"
+          >
+            <Picker.Item label="Java" value="java" />
+            <Picker.Item label="JavaScript" value="js" />
+            <Picker.Item label="JavaScript" value="js" />
+          </Picker>
+        </View>
+
+        <View>
+          <TextInput className="bg-input-bg placeholder:text-input-placeholder" placeholder="" />
+        </View>
 
         <Text
           onPress={() =>
