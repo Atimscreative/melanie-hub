@@ -14,7 +14,7 @@
   /* #FFE8D0 */
   --color-title: 62 43 30;
   /* #3E2B1E */
-  --color-body: 112 75 42;
+  --color-text: 112 75 42;
   /* #704B2A */
   --color-border: 241 198 168;
   /* #F1C6A8 */
@@ -37,7 +37,7 @@
     /* #2B1B12 */
     --color-title: 255 232 208;
     /* #FFE8D0 */
-    --color-body: 215 184 156;
+    --color-text: 215 184 156;
     /* #D7B89C */
     --color-border: 58 42 32;
     /* #3A2A20 */

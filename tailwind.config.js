@@ -12,7 +12,7 @@ module.exports = {
         background: "rgb(var(--color-background) / <alpha-value>)",
         card: "rgb(var(--color-card) / <alpha-value>)",
         title: "rgb(var(--color-title) / <alpha-value>)",
-        body: "rgb(var(--color-body) / <alpha-value>)",
+        body: "rgb(var(--color-text) / <alpha-value>)",
         border: "rgb(var(--color-border) / <alpha-value>)",
         input: {
           bg: "rgb(var(--color-input-bg) / <alpha-value>)",

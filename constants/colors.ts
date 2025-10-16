@@ -32,8 +32,8 @@ export const colors = {
     primaryHover: "#D45F1F",
     background: "#FFF8F0", // warm cream
     card: "#FFE8D0",
-    text: "#3E2B1E", // deep brown for readability
-    subText: "#704B2A",
+    title: "#3E2B1E", // deep brown for readability
+    text: "#704B2A",
     border: "#F1C6A8",
     inputBg: "#FFFFFF",
     placeholder: "#A07B5E",
@@ -43,8 +43,8 @@ export const colors = {
     primaryHover: "#FF7A24",
     background: "#1A120E", // deep brown-black
     card: "#2B1B12",
-    text: "#FFE8D0",
-    subText: "#D7B89C",
+    title: "#FFE8D0",
+    text: "#D7B89C",
     border: "#3A2A20",
     inputBg: "#2A1C14",
     placeholder: "#B08E73",
