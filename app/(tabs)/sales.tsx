@@ -4,7 +4,7 @@ import ThemedInput from "@/components/shared/ThemedInput";
 import ThemedText from "@/components/shared/ThemedText";
 import ThemedView from "@/components/shared/ThemedView";
 import { colors } from "@/constants/colors";
-import { ProductType, Sale, SaleItem } from "@/types";
+import { productOptions, ProductType, Sale, SaleItem } from "@/types";
 import { Ionicons } from "@expo/vector-icons";
 import React, { useState } from "react";
 import {
@@ -21,6 +21,7 @@ const Sales = () => {
   const colorScheme = useColorScheme();
   const theme = colors[colorScheme || "dark"];
   // const { colorScheme, setColorScheme } = useColorScheme();
+  const [sales, setSales] = useState(sampleSales);
   const [modalVisible, setModalVisible] = useState(false);
   const [saleItems, setSaleItems] = useState<SaleItem[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<ProductType | null>(
@@ -37,7 +38,6 @@ const Sales = () => {
     const newItem = {
       product: selectedProduct,
       quantity: parseInt(quantity),
-      unitPrice: selectedProduct.price,
       total: selectedProduct.price * parseInt(quantity),
     };
 
@@ -50,25 +50,41 @@ const Sales = () => {
     setSaleItems(saleItems.filter((_, i) => i !== index));
   };
 
+  const handleNewSale = () => {
+    if (saleItems?.length < 1) {
+      Alert.alert("Error", "Please add atleast a product in sale");
+      return;
+    }
+
+    const newSale = {
+      id: `#MSE123`,
+      items: saleItems,
+      total: saleItems.reduce((sum, item) => sum + item.total, 0),
+      quantity: saleItems.reduce((sum, item) => sum + item.quantity, 0),
+      date: new Date().toLocaleDateString("en-US", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      }),
+    };
+
+    setSales([newSale, ...sales]);
+    setModalVisible(false);
+  };
+
   return (
     <ThemedView safe className="px-4 mt-8">
       <View className="flex justify-between items-center flex-row gap-11 mb-6 n">
         <ThemedText title className="text-2xl">
           Sales
         </ThemedText>
-        {/* <Pressable
-          onPress={() =>
-            setColorScheme(colorScheme === "light" ? "dark" : "light")
-          }
-        >
-          <Ionicons name="moon" className="bg-primary" />
-        </Pressable> */}
+
         <Pressable
           onPress={() => setModalVisible(true)}
           className="bg-primary rounded-lg px-3 py-2 flex flex-row items-center gap-3"
         >
-          <Ionicons name="add" size={20} />
-          <Text className="font-medium text-base">New Sale</Text>
+          <Ionicons name="add" size={20} color="#fff" />
+          <Text className="font-medium text-base text-white">New Sale</Text>
         </Pressable>
       </View>
 
@@ -77,7 +93,7 @@ const Sales = () => {
         <></>
       ) : (
         <FlatList
-          data={sampleSales}
+          data={sales}
           renderItem={({ item }) => <SaleCard item={item as any} />}
           keyExtractor={(item) => item.id}
           showsVerticalScrollIndicator={false}
@@ -101,32 +117,34 @@ const Sales = () => {
             </Pressable>
             <View className="space-y-4">
               {/* Add Product Section */}
-              <View className="space-y-3">
+              <View className="">
                 <ThemedText className="text-lg font-semibold text-title mb-7">
                   Add Products to Sale
                 </ThemedText>
 
-                <ThemedInput
-                  label="Product"
-                  inputComponent={
-                    <ProductPicker
-                      selectedProduct={selectedProduct}
-                      setSelectedProduct={setSelectedProduct}
-                    />
-                  }
-                />
+                <View className="gap-3">
+                  <ThemedInput
+                    label="Product"
+                    inputComponent={
+                      <ProductPicker
+                        selectedProduct={selectedProduct}
+                        setSelectedProduct={setSelectedProduct}
+                      />
+                    }
+                  />
 
-                <ThemedInput
-                  label="Quantity"
-                  placeholder="Enter quantity"
-                  value={quantity}
-                  onChangeText={setQuantity}
-                  inputMode="numeric"
-                  keyboardType="numeric"
-                />
+                  <ThemedInput
+                    label="Quantity"
+                    placeholder="Enter quantity"
+                    value={quantity}
+                    onChangeText={setQuantity}
+                    inputMode="numeric"
+                    keyboardType="numeric"
+                  />
+                </View>
 
                 <Pressable
-                  className="bg-primary/20 border border-primary rounded-lg py-3 flex-row items-center justify-center gap-2"
+                  className="bg-primary/20 border mt-4 w-[40%] self-end border-primary rounded-lg py-3 flex-row items-center justify-center gap-2"
                   onPress={addProductToSale}
                 >
                   <Ionicons name="add" size={20} color={theme.primary} />
@@ -138,35 +156,22 @@ const Sales = () => {
 
               {/* Products List */}
               {saleItems.length > 0 && (
-                <View className="space-y-3">
+                <View className="space-y-3 mt-6">
                   <ThemedText className="text-lg font-semibold text-title">
                     Products in Sale
                   </ThemedText>
-                  {saleItems.map((item, index) => (
-                    <View key={index} className="bg-text/5 rounded-lg p-3">
-                      <View className="flex-row justify-between items-start">
-                        <View className="flex-1">
-                          <ThemedText className="font-medium text-title">
-                            {item.product.label.split(" - ")[0]}
-                          </ThemedText>
-                          <ThemedText className="text-sm text-text/70">
-                            ₦{item.unitPrice.toLocaleString()} × {item.quantity}
-                          </ThemedText>
-                        </View>
-                        <View className="flex-row items-center gap-3">
-                          <ThemedText className="font-semibold text-primary">
-                            ₦{item.total.toLocaleString()}
-                          </ThemedText>
-                          <Pressable
-                            onPress={() => removeProductFromSale(index)}
-                            className="w-6 h-6 rounded-full bg-red-100 items-center justify-center"
-                          >
-                            <Ionicons name="close" size={16} color="#EF4444" />
-                          </Pressable>
-                        </View>
-                      </View>
-                    </View>
-                  ))}
+                  <FlatList
+                    data={saleItems}
+                    keyExtractor={(item) => item.id}
+                    renderItem={({ item, index }) => (
+                      <SaleProductItem
+                        item={item}
+                        index={index}
+                        removeProductFromSale={removeProductFromSale}
+                      />
+                    )}
+                    contentContainerStyle={{ gap: 0 }}
+                  />
 
                   <View className="border-t border-border pt-3">
                     <View className="flex-row justify-between">
@@ -180,6 +185,14 @@ const Sales = () => {
                           .toLocaleString()}
                       </ThemedText>
                     </View>
+                    <Pressable
+                      className="bg-primary mt-4 rounded-lg py-3 flex-row items-center justify-center gap-2"
+                      onPress={handleNewSale}
+                    >
+                      <Text className="text-white font-semibold">
+                        Add New Sale
+                      </Text>
+                    </Pressable>
                   </View>
                 </View>
               )}
@@ -222,7 +235,7 @@ function SaleCard({ item }: { item: Sale }) {
                     {saleItem.product.label.split(" - ")[0]}
                   </ThemedText>
                   <ThemedText className="text-sm text-body/70">
-                    ₦{saleItem.unitPrice.toLocaleString()}
+                    ₦{saleItem.product.price.toLocaleString()}
                   </ThemedText>
                 </View>
                 <View className="flex-row justify-between">
@@ -252,67 +265,81 @@ function SaleCard({ item }: { item: Sale }) {
   );
 }
 
-// Product options for the dropdown
-const productOptions = [
-  { label: "20g - ₦1,500 (Pouch)", value: "20g", price: 1500 },
-  { label: "50g - ₦2,000 (Pouch)", value: "50g", price: 2000 },
-  { label: "100g - ₦2,500 (Pouch)", value: "100g", price: 2500 },
-  { label: "800g - ₦3,500 (Jar)", value: "800g", price: 3500 },
-  { label: "1L - ₦4,000 (Jar)", value: "1L", price: 4000 },
-  { label: "1.5L - ₦5,500 (Jar)", value: "1.5L", price: 5500 },
-  { label: "2.5L - ₦8,000 (Jar)", value: "2.5L", price: 8000 },
-];
+function SaleProductItem({
+  item,
+  removeProductFromSale,
+  index,
+}: {
+  item: any;
+  index: number;
+  removeProductFromSale: (index: number) => void;
+}) {
+  return (
+    <View className="bg-text/5 rounded-lg p-3">
+      <View className="flex-row justify-between items-start">
+        <View className="flex-1">
+          <ThemedText className="font-medium text-title">
+            {item.product.label.split(" - ")[0]}
+          </ThemedText>
+          <ThemedText className="text-sm text-text/70">
+            ₦{item.unitPrice.toLocaleString()} × {item.quantity}
+          </ThemedText>
+        </View>
+        <View className="flex-row items-center gap-3">
+          <ThemedText className="font-semibold text-primary">
+            ₦{item.total.toLocaleString()}
+          </ThemedText>
+          <Pressable
+            onPress={() => removeProductFromSale(index)}
+            className="w-6 h-6 rounded-full bg-red-100 items-center justify-center"
+          >
+            <Ionicons name="close" size={16} color="#EF4444" />
+          </Pressable>
+        </View>
+      </View>
+    </View>
+  );
+}
 
 const sampleSales = [
   {
     id: "MSW12083",
     date: "02-10-2025",
     items: [
-      { product: productOptions[0], quantity: 2, unitPrice: 1500, total: 3000 },
-      { product: productOptions[1], quantity: 1, unitPrice: 2000, total: 2000 },
+      { product: productOptions[0], quantity: 2, total: 3000 },
+      { product: productOptions[1], quantity: 1, total: 2000 },
     ],
     quantity: 3,
-    unitPrice: 0,
     total: 5000,
   },
   {
     id: "MSW12084",
     date: "01-10-2025",
-    items: [
-      { product: productOptions[4], quantity: 1, unitPrice: 4000, total: 4000 },
-    ],
+    items: [{ product: productOptions[4], quantity: 1, total: 4000 }],
     quantity: 1,
-    unitPrice: 4000,
     total: 4000,
   },
   {
     id: "MSW12085",
     date: "29-09-2025",
-    items: [
-      { product: productOptions[1], quantity: 3, unitPrice: 2000, total: 6000 },
-    ],
+    items: [{ product: productOptions[1], quantity: 3, total: 6000 }],
     quantity: 3,
-    unitPrice: 2000,
     total: 6000,
   },
   {
     id: "MSW12025",
     date: "29-09-2025",
-    items: [
-      { product: productOptions[1], quantity: 3, unitPrice: 2000, total: 6000 },
-    ],
+    items: [{ product: productOptions[1], quantity: 3, total: 6000 }],
     quantity: 3,
-    unitPrice: 2000,
+
     total: 6000,
   },
   {
     id: "MSW120s5",
     date: "29-09-2025",
-    items: [
-      { product: productOptions[1], quantity: 3, unitPrice: 2000, total: 6000 },
-    ],
+    items: [{ product: productOptions[1], quantity: 3, total: 6000 }],
     quantity: 3,
-    unitPrice: 2000,
+
     total: 6000,
   },
 ];

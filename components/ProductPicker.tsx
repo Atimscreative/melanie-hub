@@ -1,7 +1,7 @@
 import { colors } from "@/constants/colors";
 import { productOptions, ProductType } from "@/types";
 import { Ionicons } from "@expo/vector-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useColorScheme } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 
@@ -15,7 +15,14 @@ function ProductPicker({
   const colorScheme = useColorScheme();
   const theme = colors[colorScheme || "dark"];
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState(selectedProduct?.value as any);
+
+  useEffect(() => {
+    if (value) {
+      const product = productOptions.find((p) => p.value === value);
+      setSelectedProduct(product || null);
+    }
+  }, [selectedProduct?.value, setSelectedProduct, value]);
 
   return (
     <DropDownPicker
@@ -24,14 +31,6 @@ function ProductPicker({
       items={productOptions}
       setOpen={setOpen}
       setValue={setValue}
-      // setValue={(value) => {
-      //   if (typeof value === "string") {
-      //     const product = productOptions.find((p) => p.value === value);
-      //     setSelectedProduct(product || null);
-
-      //     return product?.value;
-      //   }
-      // }}
       placeholder="Select a product"
       labelStyle={{ color: theme.title }}
       listMode="SCROLLVIEW"
